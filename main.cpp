@@ -4,7 +4,7 @@
 #include <string.h>
 #include <errno.h>
 
-struct player {
+struct Player {
     char name[30];
     int cost;
     float score;
@@ -13,14 +13,14 @@ struct player {
     char opponent[5];
 };
 
-struct playersize {
+struct PlayerSize {
     char name[10];
     int players;
     char file[20];
 };
 
 
-bool loadFile(const char* fileName, struct player players[], int playersCount)
+bool loadFile(const char* fileName, struct Player players[], int playersCount)
 {
     FILE *file = fopen(fileName, "r");
     if (file == NULL)
@@ -33,11 +33,11 @@ bool loadFile(const char* fileName, struct player players[], int playersCount)
         if (fscanf(file, "%s %d %f %s %s %s", (players[line].name), &(players[line].cost), &(players[line].score), (players[line].id), (players[line].team), (players[line].opponent)) != 6)
             break;
         if (players[line].cost < 0) {
-            fprintf(stderr, "%s:[%d] cost < 0\n", fileName, line);
+            fprintf(stderr, "%s:[%d] cost \"%d\" < 0\n", fileName, line, players[line].cost);
             exit(1);
         }
         if (players[line].score < 0) {
-            fprintf(stderr, "%s:[%d] score < 0\n", fileName, line);
+            fprintf(stderr, "%s:[%d] score \"%f\" < 0\n", fileName, line, players[line].score);
             exit(1);
         }
         ++line;
@@ -50,7 +50,7 @@ bool loadFile(const char* fileName, struct player players[], int playersCount)
     return true;
 }
 
-bool getPlayers(const char* fileName, struct playersize positions[], int positionsCount)
+bool getPlayers(const char* fileName, struct PlayerSize positions[], int positionsCount)
 {
     FILE *file = fopen(fileName, "r");
     if (file == NULL)
@@ -69,7 +69,7 @@ bool getPlayers(const char* fileName, struct playersize positions[], int positio
 }
 
 int main() {
-    struct playersize totalplayers[4];
+    struct PlayerSize totalplayers[4];
     getPlayers("numplayers.txt", totalplayers, 4);
 
     int centers, wings, defenses, goalies = 0;
@@ -82,13 +82,13 @@ int main() {
     if (strcmp(totalplayers[3].name, "goalie") == 0)
         goalies = totalplayers[3].players;
 
-    struct player center_players[centers];
+    struct Player center_players[centers];
     loadFile("center.txt", center_players, centers);
-    struct player wing_players[wings];
+    struct Player wing_players[wings];
     loadFile("wing.txt", wing_players, wings);
-    struct player defense_players[defenses];
+    struct Player defense_players[defenses];
     loadFile("defense.txt", defense_players, defenses);
-    struct player goalie_players[goalies];
+    struct Player goalie_players[goalies];
     loadFile("goalie.txt", goalie_players, goalies);
     
     FILE *fp = fopen("best.txt", "w+");
