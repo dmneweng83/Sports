@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <cstdlib>
-
+#include <string.h>
+#include <errno.h>
 
 struct player {
     char name[30];
@@ -19,78 +20,79 @@ struct playersize {
 };
 
 
-void loadFile(const char* fileName, struct player players[])
+bool loadFile(const char* fileName, struct player players[], int playersCount)
 {
     FILE *file = fopen(fileName, "r");
     if (file == NULL)
     {
-        fprintf(stderr, "Unable to open file");
-        return;
+        fprintf(stderr, "Unable to open file: %s: %s\n", fileName, strerror(errno));
+        return false;
     }
     int line = 0;
     while (!feof(file)) {
         if (fscanf(file, "%s %d %f %s %s %s", (players[line].name), &(players[line].cost), &(players[line].score), (players[line].id), (players[line].team), (players[line].opponent)) != 6)
             break;
-        if (players[line].cost < 0 || players[line].score < 0) {
+        if (players[line].cost < 0) {
+            fprintf(stderr, "%s:[%d] cost < 0\n", fileName, line);
+            exit(1);
+        }
+        if (players[line].score < 0) {
+            fprintf(stderr, "%s:[%d] score < 0\n", fileName, line);
             exit(1);
         }
         ++line;
+        if (playersCount <= line) {
+            fprintf(stderr, "%s: There are more lines \"%d\" than playerCount \"%d\"\n", fileName, line, playersCount);
+            return false;
+        }
     }
     fclose(file);
+    return true;
 }
 
-void getPlayers(const char* fileName, struct playersize positions[])
+bool getPlayers(const char* fileName, struct playersize positions[], int positionsCount)
 {
-    FILE *file2 = fopen(fileName, "r");
-    if (file2 == NULL)
+    FILE *file = fopen(fileName, "r");
+    if (file == NULL)
     {
-        fprintf(stderr, "Unable to open file");
-        return;
+        fprintf(stderr, "Unable to open file: %s: %s\n", fileName, strerror(errno));
+        return false;
     }
     int line = 0;
-    while (!feof(file2)) {
-        if (fscanf(file2, "%s %d %s", (positions[line].name), &(positions[line].players), (positions[line].file)) != 3)
+    while (!feof(file)) {
+        if (fscanf(file, "%s %d %s", (positions[line].name), &(positions[line].players), (positions[line].file)) != 3)
             break;
         ++line;
     }
-    fclose(file2);
+    fclose(file);
+    return true;
 }
 
-
-
-
 int main() {
-
-    int centers, wings, defenses, goalies;
-
     struct playersize totalplayers[4];
-    getPlayers("numplayers.txt", totalplayers);
+    getPlayers("numplayers.txt", totalplayers, 4);
 
-            if (totalplayers[0].name == "center")
-                int centers = totalplayers[0].players;
-            if (totalplayers[1].name == "wing")
-                int wings = totalplayers[1].players;
-            if (totalplayers[2].name == "defense")
-                int defenses = totalplayers[2].players;
-            if (totalplayers[3].name == "goalie")
-                int goalies = totalplayers[3].players;
-
-
+    int centers, wings, defenses, goalies = 0;
+    if (strcmp(totalplayers[0].name, "center") == 0)
+        centers = totalplayers[0].players;
+    if (strcmp(totalplayers[1].name, "wing") == 0)
+        wings = totalplayers[1].players;
+    if (strcmp(totalplayers[2].name, "defense") == 0)
+        defenses = totalplayers[2].players;
+    if (strcmp(totalplayers[3].name, "goalie") == 0)
+        goalies = totalplayers[3].players;
 
     struct player center_players[centers];
-    loadFile("center.txt", center_players);
+    loadFile("center.txt", center_players, centers);
     struct player wing_players[wings];
-    loadFile("wing.txt", wing_players);
+    loadFile("wing.txt", wing_players, wings);
     struct player defense_players[defenses];
-    loadFile("defense.txt", defense_players);
+    loadFile("defense.txt", defense_players, defenses);
     struct player goalie_players[goalies];
-    loadFile("goalie.txt", goalie_players);
-
-
+    loadFile("goalie.txt", goalie_players, goalies);
+    
     FILE *fp = fopen("best.txt", "w+");
     FILE *csv = fopen("lineups.txt", "w+");
-
-
 
     float bestScore = 0;
     int_fast64_t count = 0;
@@ -177,6 +179,6 @@ int main() {
             }
         }
     }
-fclose(fp);
-fclose(csv);
+    fclose(fp);
+    fclose(csv);
 }
