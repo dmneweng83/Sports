@@ -90,7 +90,7 @@ int main() {
     loadFile("defense.txt", defense_players, defenses);
     struct Player goalie_players[goalies];
     loadFile("goalie.txt", goalie_players, goalies);
-    
+
     FILE *fp = fopen("best.txt", "w+");
     FILE *csv = fopen("lineups.txt", "w+");
 
@@ -137,7 +137,7 @@ int main() {
                                         int cost = centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + defensecost + defense2cost + goaliecost;
                                         if (cost > 55000)
                                             continue;
-                                        
+
                                         float score = center_players[center].score + center_players[center2].score + wing_players[wing].score + wing_players[wing2].score + wing_players[wing3].score + wing_players[wing4].score + defense_players[defense].score + defense_players[defense2].score + goalie_players[goalie].score;
                                         ++count;
                                         if (score > 100) {
