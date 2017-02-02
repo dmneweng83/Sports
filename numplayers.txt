@@ -1,0 +1,4 @@
+center 114 center.txt
+wing 245 wing.txt
+defense 191 defense.txt
+goalie 54 goalie.txt
