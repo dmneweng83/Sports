@@ -1,0 +1,12 @@
+init.sh - the script which sets up the txt files with the players and the information needed
+main.cpp - the code to generate all the possible lineups based on the txt generated
+makecsv.sh - the code needed to take the output of the best lineups, and put them into a csv form
+             It will create up to 150 csvs into a folder
+             when uploading a csv to the fanduel website, can just choose the csv you want based on how many lineups you want
+
+main.sh  -  Is a step by step process to go from start to end
+            first copies the list of players from my desktop
+            then runs the init.sh
+            then runs main
+            then creates the csv
+            then finally sends the folder of csvs back to desktop
