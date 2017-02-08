@@ -75,7 +75,7 @@ int main() {
     struct PlayerSize totalplayers[4];
     getPlayers("numplayers.txt", totalplayers, 4);
 
-    int centers, wings, defenses, goalies = 0;
+    int centers = 0, wings = 0, defenses = 0, goalies = 0;
     if (strcmp(totalplayers[0].name, "center") == 0)
         centers = totalplayers[0].players;
     if (strcmp(totalplayers[1].name, "wing") == 0)
@@ -100,7 +100,7 @@ int main() {
     cheapgoalie = goalie_players[goalies].cost;
     cheapdefense2 = defense_players[defenses].cost;
     cheapdefense = defense_players[defenses-1].cost;
-    float bestScore = 0;
+    //float bestScore = 0;
     int count = 0;
     for (int center = 0; center < centers-1; ++center)
     {
