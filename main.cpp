@@ -36,12 +36,12 @@ bool loadFile(const char* fileName, struct Player players[], int playersCount)
             fprintf(stderr, "%s:[%d] %s cost \"%d\" < 0\n", fileName, line, players[line].name,  players[line].cost);
             exit(1);
         }
-//        if (players[line].score < 0) {
-//           fprintf(stderr, "%s:[%d] score \"%f\" < 0\n", fileName, line, players[line].score);
-//            exit(1);
-//        }
+        if (players[line].score < 0) {
+           fprintf(stderr, "%s:[%d] score \"%f\" < 0\n", fileName, line, players[line].score);
+            exit(1);
+        }
         ++line;
-//            printf("%s: There are more lines \"%d\" than playerCount \"%d\"\n", fileName, line, playersCount);
+
         if (playersCount < line) {
             fprintf(stderr, "%s: There are more lines \"%d\" than playerCount \"%d\"\n", fileName, line, playersCount);
             return false;
@@ -71,11 +71,11 @@ bool getPlayers(const char* fileName, struct PlayerSize positions[], int positio
 
 int main() {
     float bestscore = 0;
-    int cheapgoalie, cheapdefense, cheapdefense2 = 0;
+    int cheapgoalie, cheapdefense, cheapdefense2, cheapwing4 = 0;
     struct PlayerSize totalplayers[4];
     getPlayers("numplayers.txt", totalplayers, 4);
 
-    int centers = 0, wings = 0, defenses = 0, goalies = 0;
+    int centers, wings, defenses, goalies = 0;
     if (strcmp(totalplayers[0].name, "center") == 0)
         centers = totalplayers[0].players;
     if (strcmp(totalplayers[1].name, "wing") == 0)
@@ -93,57 +93,122 @@ int main() {
     loadFile("defense.txt", defense_players, defenses);
     struct Player goalie_players[goalies];
     loadFile("goalie.txt", goalie_players, goalies);
+    int percent;
+    int numerator = 0;
+    int combination = (centers*(centers-1)*(wings-3)/2);
 
     FILE *fp = fopen("best.txt", "w+");
     FILE *csv = fopen("lineups.txt", "w+");
-
+    
     cheapgoalie = goalie_players[goalies].cost;
     cheapdefense2 = defense_players[defenses].cost;
     cheapdefense = defense_players[defenses-1].cost;
-    //float bestScore = 0;
+    cheapwing4 = wing_players[wings].cost;
+    float bestScore = 0;
     int count = 0;
+    float bestgoalie, bestdefense, bestdefense2, bestwing = 0;
+
+    for (int x = 0; x < goalies; ++x)
+    {
+        if (goalie_players[x].score > bestgoalie)
+            bestgoalie = goalie_players[x].score;
+    }
+
+    for (int x = 0; x < defenses; ++x)
+    {
+
+        if ((defense_players[x].score < bestdefense) && (defense_players[x].score > bestdefense2))
+        {
+            bestdefense2 = defense_players[x].score;
+        }
+
+        else if (defense_players[x].score > bestdefense)
+        {
+            bestdefense2 = bestdefense;
+            bestdefense = defense_players[x].score;
+        }
+
+    }
+
+    for (int x = 0; x < wings; ++x)
+    {
+        if (wing_players[x].score > bestwing)
+            bestwing = wing_players[x].score;
+    }
+
+
+
     for (int center = 0; center < centers-1; ++center)
     {
         int centercost = center_players[center].cost;
+        float centerscore = center_players[center].score;
         for (int center2 = center+1; center2 < centers; ++center2)
         {
             int center2cost = center_players[center2].cost;
+            float center2score = center_players[center2].score;
             for (int wing = 0; wing < wings-3; ++wing)
             {
+                ++numerator;
+                percent=((numerator*100)/combination);
+                printf ("%d out of %d is %d Complete!\n", numerator, combination, percent); 
                 int wingcost = wing_players[wing].cost;
+                float wingscore = wing_players[wing].score;
+
                 for (int wing2 = wing+1; wing2 < wings-2 ; ++wing2)
                 {
                     int wing2cost = wing_players[wing2].cost;
-                    //if (qbcost + rb1cost + rb2cost + wr1cost > 37400)
-                    //    cotinue;
+                    float wing2score = wing_players[wing2].score;
+                    
                     for (int wing3 = wing2+1; wing3 < wings-1; ++wing3)
                     {
                         int wing3cost = wing_players[wing3].cost;
-                        //if (qbcost + rb1cost + rb2cost + wr1cost + wr2cost > 42100)
-                        //   continue;
+                        float wing3score = wing_players[wing3].score;
+
+                        if (centercost + center2cost + wingcost + wing2cost + wing3cost + cheapwing4 + cheapdefense + cheapdefense2 + cheapgoalie > 55000)
+                            continue;
+
+                            if (centerscore + center2score + wingscore + wing2score + wing3score + bestwing + bestdefense2 + bestdefense + bestgoalie < (bestscore - 1.5))
+                                continue;
+
                         for (int wing4 = wing3 + 1; wing4 < wings; ++wing4)
                         {
                             int wing4cost = wing_players[wing4].cost;
+                            float wing4score = wing_players[wing4].score;
+
                             if (centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + cheapdefense + cheapdefense2 + cheapgoalie > 55000)
                                 continue;
+                                if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + bestdefense2 + bestdefense + bestgoalie < (bestscore - 1.5))
+                                    continue;
+
                             for (int defense = 0; defense < defenses-1; ++defense)
                             {
                                 int defensecost = defense_players[defense].cost;
-                            if (centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + defensecost + cheapdefense2 + cheapgoalie > 55000)
-                                continue;
+                                float defensescore = defense_players[defense].score;
+
+                                if (centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + defensecost + cheapdefense2 + cheapgoalie > 55000)
+                                    continue;
+
+                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + bestdefense + bestgoalie < (bestscore - 1.5))
+                                        continue;
 
                                 for (int defense2 = defense + 1; defense2 < defenses; ++defense2)
                                 {
                                     int defense2cost = defense_players[defense2].cost;
-                                    //if (qbcost + rb1cost + rb2cost + wr1cost + wr2cost + wr3cost + tecost + kcost > 56000)
-                                    //    continue;
+                                    float defense2score = defense_players[defense2].score;
+
+                                    if (centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + defensecost + defense2cost + cheapgoalie > 55000)  
+                                        continue;
+                                  
+                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + defense2score + bestgoalie < (bestscore - 1.5))
+                                        continue;
+
+
                                     for (int goalie = 0; goalie < goalies; ++goalie)
                                     {
                                         int goaliecost = goalie_players[goalie].cost;
-//printf("%d %d %d %d %d %d %d %d %s %d\n", centercost, center2cost, wingcost, wing2cost, wing3cost, wing4cost, defensecost, defense2cost, defense_players[defense2].name , goaliecost);
+
                                         int cost = centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + defensecost + defense2cost + goaliecost;
-//if (cost < 55000)
-//printf("%d", cost);
+
                                         if (cost > 55000)
                                             continue;
                                         float score = center_players[center].score + center_players[center2].score + wing_players[wing].score + wing_players[wing2].score + wing_players[wing3].score + wing_players[wing4].score + defense_players[defense].score + defense_players[defense2].score + goalie_players[goalie].score;
