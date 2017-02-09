@@ -75,9 +75,9 @@ if [ "$injury" == "" ]; then
     adjustment=$( echo "scale=2;$adjustment2/100" | bc -l )
    
 #    echo "$team $spread $project $adjustment"
-    project=$( echo "$project*$adjustment" | bc -l )
+    project2=$( echo "$project*$adjustment" | bc -l )
 #    echo "$team $spread $project $adjustment"
-
+    project=$project2
     fi
 
 
