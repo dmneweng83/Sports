@@ -262,6 +262,12 @@ int main() {
                                                 continue;
 
                                             if ((
+                                            (!strcmp(wing_players[wing4].team, defense_players[defense].team)) +
+                                            (!strcmp(wing_players[wing4].team, defense_players[defense2].team)) +
+                                            (!strcmp(wing_players[wing4].team, goalie_players[goalie].team))) > 3)
+                                                continue;
+
+                                            if ((
                                             (!strcmp(goalie_players[goalie].opponent, center_players[center].team)) +
                                             (!strcmp(goalie_players[goalie].opponent, center_players[center2].team)) +
                                             (!strcmp(goalie_players[goalie].opponent, wing_players[wing].team)) +
