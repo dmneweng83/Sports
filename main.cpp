@@ -167,7 +167,7 @@ int main() {
                         if (centercost + center2cost + wingcost + wing2cost + wing3cost + cheapwing4 + cheapdefense + cheapdefense2 + cheapgoalie > 55000)
                             continue;
 
-                            if (centerscore + center2score + wingscore + wing2score + wing3score + bestwing + bestdefense2 + bestdefense + bestgoalie < (bestscore - 1.5))
+                            if (centerscore + center2score + wingscore + wing2score + wing3score + bestwing + bestdefense2 + bestdefense + bestgoalie < (bestscore - 2))
                                 continue;
 
                         for (int wing4 = wing3 + 1; wing4 < wings; ++wing4)
@@ -177,7 +177,7 @@ int main() {
 
                             if (centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + cheapdefense + cheapdefense2 + cheapgoalie > 55000)
                                 continue;
-                                if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + bestdefense2 + bestdefense + bestgoalie < (bestscore - 1.5))
+                                if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + bestdefense2 + bestdefense + bestgoalie < (bestscore - 2))
                                     continue;
 
                             for (int defense = 0; defense < defenses-1; ++defense)
@@ -188,7 +188,7 @@ int main() {
                                 if (centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + defensecost + cheapdefense2 + cheapgoalie > 55000)
                                     continue;
 
-                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + bestdefense + bestgoalie < (bestscore - 1.5))
+                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + bestdefense + bestgoalie < (bestscore - 2))
                                         continue;
 
                                 for (int defense2 = defense + 1; defense2 < defenses; ++defense2)
@@ -199,7 +199,7 @@ int main() {
                                     if (centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + defensecost + defense2cost + cheapgoalie > 55000)  
                                         continue;
                                   
-                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + defense2score + bestgoalie < (bestscore - 1.5))
+                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + defense2score + bestgoalie < (bestscore - 2))
                                         continue;
 
 
@@ -215,7 +215,7 @@ int main() {
 
                                         if (score > bestscore)
                                              bestscore = score;
-                                        if (score > (bestscore - 1.5)) {
+                                        if (score > (bestscore - 2)) {
 
                                             if ((
                                             (center_players[center].team == center_players[center2].team) + 
