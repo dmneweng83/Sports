@@ -83,9 +83,9 @@ if [ "$injury" == "" ]; then
 
 
      if (( $(echo "$project 7.5" | awk '{print ($1 > $2)}') )); then
-     if (( $(echo "$project 9.5" | awk '{print ($1 < $2)}') && $(echo "$salary 5000" | awk '{print ($1 > $2)}')  )); then
-          continue
-     fi
+         if (( $(echo "$project 9.5" | awk '{print ($1 < $2)}') && $(echo "$salary 5000" | awk '{print ($1 > $2)}')  )); then
+              continue
+         fi
 
 
           if [ "$position" == "G" ]; then
