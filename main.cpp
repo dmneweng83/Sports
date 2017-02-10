@@ -165,7 +165,7 @@ int main() {
                         float wing3score = wing_players[wing3].score;
                         if (centercost + center2cost + wingcost + wing2cost + wing3cost + cheapwing4 + cheapdefense + cheapdefense2 + cheapgoalie > 55000)
                             continue;
-                        if (centerscore + center2score + wingscore + wing2score + wing3score + bestwing + bestdefense2 + bestdefense + bestgoalie < (bestscore - 3))
+                        if (centerscore + center2score + wingscore + wing2score + wing3score + bestwing + bestdefense2 + bestdefense + bestgoalie < (bestscore - 4))
                             continue;
 
                         for (int wing4 = wing3 + 1; wing4 < wings; ++wing4)
@@ -175,7 +175,7 @@ int main() {
 
                             if (centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + cheapdefense + cheapdefense2 + cheapgoalie > 55000)
                                 continue;
-                                if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + bestdefense2 + bestdefense + bestgoalie < (bestscore - 3))
+                                if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + bestdefense2 + bestdefense + bestgoalie < (bestscore - 4))
                                     continue;
 
                             for (int defense = 0; defense < defenses-1; ++defense)
@@ -186,7 +186,7 @@ int main() {
                                 if (centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + defensecost + cheapdefense2 + cheapgoalie > 55000)
                                     continue;
 
-                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + bestdefense + bestgoalie < (bestscore - 3))
+                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + bestdefense + bestgoalie < (bestscore - 4))
                                         continue;
 
                                 for (int defense2 = defense + 1; defense2 < defenses; ++defense2)
@@ -197,7 +197,7 @@ int main() {
                                     if (centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + defensecost + defense2cost + cheapgoalie > 55000)  
                                         continue;
                                   
-                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + defense2score + bestgoalie < (bestscore - 3))
+                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + defense2score + bestgoalie < (bestscore - 4))
                                         continue;
 
 
@@ -214,9 +214,9 @@ int main() {
 
                                         if (score > bestscore)
                                              bestscore = score;
-                                        if (score > (bestscore - 3)) {
+                                        if (score > (bestscore - 4)) {
 
-                                            if (
+                                            if ((
                                             (!strcmp(center_players[center].team, center_players[center2].team)) + 
                                             (!strcmp(center_players[center].team, wing_players[wing].team)) +
                                             (!strcmp(center_players[center].team, wing_players[wing2].team)) +
@@ -224,44 +224,44 @@ int main() {
                                             (!strcmp(center_players[center].team, wing_players[wing4].team)) +
                                             (!strcmp(center_players[center].team, defense_players[defense].team)) +
                                             (!strcmp(center_players[center].team, defense_players[defense2].team)) +
-                                            (!strcmp(center_players[center].team, goalie_players[goalie].team)) > 4)
+                                            (!strcmp(center_players[center].team, goalie_players[goalie].team))) > 3)
                                                 continue;
 
-                                            if (
+                                            if ((
                                             (!strcmp(center_players[center2].team, wing_players[wing].team)) +
                                             (!strcmp(center_players[center2].team, wing_players[wing2].team)) +
                                             (!strcmp(center_players[center2].team, wing_players[wing3].team)) +
                                             (!strcmp(center_players[center2].team, wing_players[wing4].team)) +
                                             (!strcmp(center_players[center2].team, defense_players[defense].team)) +
                                             (!strcmp(center_players[center2].team, defense_players[defense2].team)) +
-                                            (!strcmp(center_players[center2].team, goalie_players[goalie].team)) > 4)
+                                            (!strcmp(center_players[center2].team, goalie_players[goalie].team))) > 3)
                                                 continue;
                                             
-                                            if (
+                                            if ((
                                             (!strcmp(wing_players[wing].team, wing_players[wing2].team)) +
                                             (!strcmp(wing_players[wing].team, wing_players[wing3].team)) +
                                             (!strcmp(wing_players[wing].team, wing_players[wing4].team)) +
                                             (!strcmp(wing_players[wing].team, defense_players[defense].team)) +
                                             (!strcmp(wing_players[wing].team, defense_players[defense2].team)) +
-                                            (!strcmp(wing_players[wing].team, goalie_players[goalie].team)) > 4)
+                                            (!strcmp(wing_players[wing].team, goalie_players[goalie].team))) > 3)
                                                 continue;
 
-                                            if (
+                                            if ((
                                             (!strcmp(wing_players[wing2].team, wing_players[wing3].team)) +
                                             (!strcmp(wing_players[wing2].team, wing_players[wing4].team)) +
                                             (!strcmp(wing_players[wing2].team, defense_players[defense].team)) +
                                             (!strcmp(wing_players[wing2].team, defense_players[defense2].team)) +
-                                            (!strcmp(wing_players[wing2].team, goalie_players[goalie].team)) > 4)
+                                            (!strcmp(wing_players[wing2].team, goalie_players[goalie].team))) > 3)
                                                 continue;
 
-                                            if (
+                                            if ((
                                             (!strcmp(wing_players[wing3].team, wing_players[wing4].team)) +
                                             (!strcmp(wing_players[wing3].team, defense_players[defense].team)) +
                                             (!strcmp(wing_players[wing3].team, defense_players[defense2].team)) +
-                                            (!strcmp(wing_players[wing3].team, goalie_players[goalie].team)) > 4)
+                                            (!strcmp(wing_players[wing3].team, goalie_players[goalie].team))) > 3)
                                                 continue;
 
-                                            if (
+                                            if ((
                                             (!strcmp(goalie_players[goalie].opponent, center_players[center].team)) +
                                             (!strcmp(goalie_players[goalie].opponent, center_players[center2].team)) +
                                             (!strcmp(goalie_players[goalie].opponent, wing_players[wing].team)) +
@@ -269,7 +269,7 @@ int main() {
                                             (!strcmp(goalie_players[goalie].opponent, wing_players[wing3].team)) +
                                             (!strcmp(goalie_players[goalie].opponent, wing_players[wing4].team)) +
                                             (!strcmp(goalie_players[goalie].opponent, defense_players[defense].team)) +
-                                            (!strcmp(goalie_players[goalie].opponent, defense_players[defense2].team)) > 1)
+                                            (!strcmp(goalie_players[goalie].opponent, defense_players[defense2].team))) > 1)
                                                 continue;
 
 
