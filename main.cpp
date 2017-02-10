@@ -216,60 +216,60 @@ int main() {
                                              bestscore = score;
                                         if (score > (bestscore - 3)) {
 
-                                            if ((
-                                            (center_players[center].team == center_players[center2].team) + 
-                                            (center_players[center].team == wing_players[wing].team) +
-                                            (center_players[center].team == wing_players[wing2].team) +
-                                            (center_players[center].team == wing_players[wing3].team) +
-                                            (center_players[center].team == wing_players[wing4].team) +
-                                            (center_players[center].team == defense_players[defense].team) +
-                                            (center_players[center].team == defense_players[defense2].team) +
-                                            (center_players[center].team == goalie_players[goalie].team)) > 4)
+                                            if (
+                                            (!strcmp(center_players[center].team, center_players[center2].team)) + 
+                                            (!strcmp(center_players[center].team, wing_players[wing].team)) +
+                                            (!strcmp(center_players[center].team, wing_players[wing2].team)) +
+                                            (!strcmp(center_players[center].team, wing_players[wing3].team)) +
+                                            (!strcmp(center_players[center].team, wing_players[wing4].team)) +
+                                            (!strcmp(center_players[center].team, defense_players[defense].team)) +
+                                            (!strcmp(center_players[center].team, defense_players[defense2].team)) +
+                                            (!strcmp(center_players[center].team, goalie_players[goalie].team)) > 4)
                                                 continue;
 
-                                            if ((
-                                            (center_players[center2].team == wing_players[wing].team) +
-                                            (center_players[center2].team == wing_players[wing2].team) +
-                                            (center_players[center2].team == wing_players[wing3].team) +
-                                            (center_players[center2].team == wing_players[wing4].team) +
-                                            (center_players[center2].team == defense_players[defense].team) +
-                                            (center_players[center2].team == defense_players[defense2].team) +
-                                            (center_players[center2].team == goalie_players[goalie].team)) > 4)
+                                            if (
+                                            (!strcmp(center_players[center2].team, wing_players[wing].team)) +
+                                            (!strcmp(center_players[center2].team, wing_players[wing2].team)) +
+                                            (!strcmp(center_players[center2].team, wing_players[wing3].team)) +
+                                            (!strcmp(center_players[center2].team, wing_players[wing4].team)) +
+                                            (!strcmp(center_players[center2].team, defense_players[defense].team)) +
+                                            (!strcmp(center_players[center2].team, defense_players[defense2].team)) +
+                                            (!strcmp(center_players[center2].team, goalie_players[goalie].team)) > 4)
                                                 continue;
                                             
-                                            if ((
-                                            (wing_players[wing].team == wing_players[wing2].team) +
-                                            (wing_players[wing].team == wing_players[wing3].team) +
-                                            (wing_players[wing].team == wing_players[wing4].team) +
-                                            (wing_players[wing].team == defense_players[defense].team) +
-                                            (wing_players[wing].team == defense_players[defense2].team) +
-                                            (wing_players[wing].team == goalie_players[goalie].team)) > 4)
+                                            if (
+                                            (!strcmp(wing_players[wing].team, wing_players[wing2].team)) +
+                                            (!strcmp(wing_players[wing].team, wing_players[wing3].team)) +
+                                            (!strcmp(wing_players[wing].team, wing_players[wing4].team)) +
+                                            (!strcmp(wing_players[wing].team, defense_players[defense].team)) +
+                                            (!strcmp(wing_players[wing].team, defense_players[defense2].team)) +
+                                            (!strcmp(wing_players[wing].team, goalie_players[goalie].team)) > 4)
                                                 continue;
 
-                                            if ((
-                                            (wing_players[wing2].team == wing_players[wing3].team) +
-                                            (wing_players[wing2].team == wing_players[wing4].team) +
-                                            (wing_players[wing2].team == defense_players[defense].team) +
-                                            (wing_players[wing2].team == defense_players[defense2].team) +
-                                            (wing_players[wing2].team == goalie_players[goalie].team)) > 4)
+                                            if (
+                                            (!strcmp(wing_players[wing2].team, wing_players[wing3].team)) +
+                                            (!strcmp(wing_players[wing2].team, wing_players[wing4].team)) +
+                                            (!strcmp(wing_players[wing2].team, defense_players[defense].team)) +
+                                            (!strcmp(wing_players[wing2].team, defense_players[defense2].team)) +
+                                            (!strcmp(wing_players[wing2].team, goalie_players[goalie].team)) > 4)
                                                 continue;
 
-                                            if ((
-                                            (wing_players[wing3].team == wing_players[wing4].team) +
-                                            (wing_players[wing3].team == defense_players[defense].team) +
-                                            (wing_players[wing3].team == defense_players[defense2].team) +
-                                            (wing_players[wing3].team == goalie_players[goalie].team)) > 4)
+                                            if (
+                                            (!strcmp(wing_players[wing3].team, wing_players[wing4].team)) +
+                                            (!strcmp(wing_players[wing3].team, defense_players[defense].team)) +
+                                            (!strcmp(wing_players[wing3].team, defense_players[defense2].team)) +
+                                            (!strcmp(wing_players[wing3].team, goalie_players[goalie].team)) > 4)
                                                 continue;
 
-                                            if ((
-                                            (goalie_players[goalie].opponent == center_players[center2].team) +
-                                            (goalie_players[goalie].opponent == wing_players[wing].team) +
-                                            (goalie_players[goalie].opponent == wing_players[wing2].team) +
-                                            (goalie_players[goalie].opponent == wing_players[wing3].team) +
-                                            (goalie_players[goalie].opponent == wing_players[wing4].team) +
-                                            (goalie_players[goalie].opponent == defense_players[defense].team) +
-                                            (goalie_players[goalie].opponent == defense_players[defense2].team) +
-                                            (goalie_players[goalie].opponent == center_players[center].team)) > 1) 
+                                            if (
+                                            (!strcmp(goalie_players[goalie].opponent, center_players[center].team)) +
+                                            (!strcmp(goalie_players[goalie].opponent, center_players[center2].team)) +
+                                            (!strcmp(goalie_players[goalie].opponent, wing_players[wing].team)) +
+                                            (!strcmp(goalie_players[goalie].opponent, wing_players[wing2].team)) +
+                                            (!strcmp(goalie_players[goalie].opponent, wing_players[wing3].team)) +
+                                            (!strcmp(goalie_players[goalie].opponent, wing_players[wing4].team)) +
+                                            (!strcmp(goalie_players[goalie].opponent, defense_players[defense].team)) +
+                                            (!strcmp(goalie_players[goalie].opponent, defense_players[defense2].team)) > 1)
                                                 continue;
 
 
