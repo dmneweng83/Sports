@@ -27,16 +27,12 @@ touch defense.txt
 rm numplayers.txt
 touch numplayers.txt
 
-rm goalie2.txt
 touch goalie2.txt
 
-rm wing2.txt
 touch wing2.txt
 
-rm defense2.txt
 touch wing2.txt
 
-rm center2.txt
 touch center2.txt
 
 goalie1=0
@@ -49,17 +45,61 @@ wing5=0
 defense1=0
 defense2=0
 defense3=0
+defense4=0
 center1=0
 center2=0
 center3=0
+center4=0
 
 
 INPUT=allplayers2.csv
 OLDIFS=$IFS
 IFS=,
 [ ! -f $INPUT ] && { echo "$INPUT file not found"; exit 99; }
-while read id position first nick last project played salary game team opponent injury type
+while read id position first nick last project played salary game team opponent injury type line
 do
+
+
+
+if [ "$position" == "C" ]; then
+    if (( $(echo "$line 3" | awk '{print ($1 > $2)}') )); then
+        continue
+    fi
+    if (( $(echo "$line 1" | awk '{print ($1 < $2)}') )); then
+        continue
+    fi
+fi
+
+if [ "$position" == "W" ]; then
+    if (( $(echo "$line 3" | awk '{print ($1 > $2)}') )); then
+        continue
+    fi
+    if (( $(echo "$line 1" | awk '{print ($1 < $2)}') )); then
+        continue
+    fi
+fi
+
+if [ "$position" == "D" ]; then
+    if (( $(echo "$line 2" | awk '{print ($1 > $2)}') )); then
+        continue
+    fi
+    if (( $(echo "$line 1" | awk '{print ($1 < $2)}') )); then
+        continue
+    fi
+fi
+
+if [ "$position" == "G" ]; then
+    if (( $(echo "$line 1" | awk '{print ($1 > $2)}') )); then
+        continue
+    fi
+    if (( $(echo "$line 1" | awk '{print ($1 < $2)}') )); then
+        continue
+    fi
+fi
+
+
+
+
 
 if [ "$injury" == "" ]; then
 
@@ -82,8 +122,8 @@ if [ "$injury" == "" ]; then
 
 
 
-     if (( $(echo "$project 7.5" | awk '{print ($1 > $2)}') )); then
-         if (( $(echo "$project 9.5" | awk '{print ($1 < $2)}') && $(echo "$salary 5000" | awk '{print ($1 > $2)}')  )); then
+     if (( $(echo "$project 6.8" | awk '{print ($1 > $2)}') )); then
+         if (( $(echo "$project 7.5" | awk '{print ($1 < $2)}') && $(echo "$salary 5000" | awk '{print ($1 > $2)}')  )); then
               continue
          fi
 
@@ -95,7 +135,7 @@ if [ "$injury" == "" ]; then
 
                if (( $(echo "$project $goalie2" | awk '{print ($1 > $2)}') )); then
 
-                   echo "$last$first $salary $project $id $team $opponent" >> goalie2.txt
+                   echo "$last$first $salary $project $id $team $opponent $line" >> goalie2.txt
                    goalie2=$project
                    if (( $(echo "$project $goalie1" | awk '{print ($1 > $2)}') )); then
                        goalie2=$goalie1
@@ -109,7 +149,7 @@ if [ "$injury" == "" ]; then
 
                if (( $(echo "$project $wing5" | awk '{print ($1 > $2)}') )); then
 
-                   echo "$last$first $salary $project $id $team $opponent" >> wing2.txt
+                   echo "$last$first $salary $project $id $team $opponent $line" >> wing2.txt
                    wing5=$project
                    if (( $(echo "$project $wing4" | awk '{print ($1 > $2)}') )); then
                        wing5=$wing4
@@ -136,10 +176,15 @@ if [ "$injury" == "" ]; then
           if [ "$position" == "D" ]; then
 
 
-              if (( $(echo "$project $defense3" | awk '{print ($1 > $2)}') )); then
+              if (( $(echo "$project $defense4" | awk '{print ($1 > $2)}') )); then
 
-                   echo "$last$first $salary $project $id $team $opponent" >> defense2.txt
-                   defense3=$project
+                   echo "$last$first $salary $project $id $team $opponent $line" >> defense2.txt
+                   defense4=$project
+
+                   if (( $(echo "$project $defense3" | awk '{print ($1 > $2)}') )); then
+                       defense4=$defense3
+                       defense3=$project
+                   fi
                    if (( $(echo "$project $defense2" | awk '{print ($1 > $2)}') )); then
                        defense3=$defense2
                        defense2=$project
@@ -157,10 +202,15 @@ if [ "$injury" == "" ]; then
 
           if [ "$position" == "C" ]; then
 
-              if (( $(echo "$project $center3" | awk '{print ($1 > $2)}') )); then
+              if (( $(echo "$project $center4" | awk '{print ($1 > $2)}') )); then
 
-                   echo "$last$first $salary $project $id $team $opponent" >> center2.txt
-                   center3=$project
+                   echo "$last$first $salary $project $id $team $opponent $line" >> center2.txt
+                   center4=$project
+
+                   if (( $(echo "$project $center3" | awk '{print ($1 > $2)}') )); then
+                       center4=$center3
+                       center3=$project
+                   fi
                    if (( $(echo "$project $center2" | awk '{print ($1 > $2)}') )); then
                        center3=$center2
                        center2=$project
