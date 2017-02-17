@@ -9,6 +9,7 @@ Get the csv with all players from the fanduel website
     - Make adjustments for what players to omit from master list
         - ie. player is not starting that game
         - A player usually not starting is, so adjust his initial projections
+        - On the last column add what line each player is in. Can be found on fanduel
 
 Populate the spread.txt
     - This is just a file with the Letter code of team, and their vegas odds
@@ -20,6 +21,7 @@ Run init.sh
     - The script sets up the txt files with the players and the information needed
         - This script reads through the list of players &
             - Adjust the players projections
+            - Only keeps players in the top lines of teams
             - Only keeps players that score enough to be considered
             - Does not keep players if there are enough players that score more and are cheaper
         - Then assigns the players to their correct txt file based on position
@@ -28,6 +30,7 @@ Run init.sh
 main.cpp
     - comiles to main
     - Code to generate all the possible lineups based on the positions generated
+    - Now is updated so that at least two lines will have two players in it
     - Displays the % of the way through the posibilities it needs to compare
     - Will check to see if a lineup is cheap enough
     - Will see if a lineup is within 2 points of the current-best, if so will add that lineup to the posible lineups
