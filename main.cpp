@@ -166,7 +166,7 @@ int main() {
                         float wing3score = wing_players[wing3].score;
                         if (centercost + center2cost + wingcost + wing2cost + wing3cost + cheapwing4 + cheapdefense + cheapdefense2 + cheapgoalie > 55000)
                             continue;
-                        if (centerscore + center2score + wingscore + wing2score + wing3score + bestwing + bestdefense2 + bestdefense + bestgoalie < (bestscore - 12))
+                        if (centerscore + center2score + wingscore + wing2score + wing3score + bestwing + bestdefense2 + bestdefense + bestgoalie < (bestscore - 4))
                             continue;
 
                         for (int wing4 = wing3 + 1; wing4 < wings; ++wing4)
@@ -176,7 +176,7 @@ int main() {
 
                             if (centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + cheapdefense + cheapdefense2 + cheapgoalie > 55000)
                                 continue;
-                                if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + bestdefense2 + bestdefense + bestgoalie < (bestscore - 12))
+                                if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + bestdefense2 + bestdefense + bestgoalie < (bestscore - 4))
                                     continue;
 
                             for (int defense = 0; defense < defenses-1; ++defense)
@@ -187,7 +187,7 @@ int main() {
                                 if (centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + defensecost + cheapdefense2 + cheapgoalie > 55000)
                                     continue;
 
-                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + bestdefense + bestgoalie < (bestscore - 12))
+                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + bestdefense + bestgoalie < (bestscore - 4))
                                         continue;
 
                                 for (int defense2 = defense + 1; defense2 < defenses; ++defense2)
@@ -198,7 +198,7 @@ int main() {
                                     if (centercost + center2cost + wingcost + wing2cost + wing3cost + wing4cost + defensecost + defense2cost + cheapgoalie > 55000)  
                                         continue;
                                   
-                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + defense2score + bestgoalie < (bestscore - 12))
+                                    if (centerscore + center2score + wingscore + wing2score + wing3score + wing4score + defensescore + defense2score + bestgoalie < (bestscore - 4))
                                         continue;
 
 
@@ -215,7 +215,7 @@ int main() {
 
                                         if (score > bestscore)
                                              bestscore = score;
-                                        if (score > (bestscore - 12)) {
+                                        if (score > (bestscore - 4)) {
 
                                             if ((
                                             (!strcmp(center_players[center].team, center_players[center2].team)) + 
@@ -296,27 +296,45 @@ int main() {
                                                 ++unique;
                                             }
 
-                                            if ( ((!(!strcmp(wing_players[wing].team, wing_players[wing2].team))) || (wing_players[wing].lines != wing_players[wing2].lines)) &&
+                                            if ( ((!(!strcmp(wing_players[wing].team, center_players[center].team))) || (wing_players[wing].lines != center_players[center].lines)) &&
+                                                 ((!(!strcmp(wing_players[wing].team, center_players[center2].team))) || (wing_players[wing].lines != center_players[center2].lines)) &&
+                                                 ((!(!strcmp(wing_players[wing].team, wing_players[wing2].team))) || (wing_players[wing].lines != wing_players[wing2].lines)) &&
                                                  ((!(!strcmp(wing_players[wing].team, wing_players[wing3].team))) || (wing_players[wing].lines != wing_players[wing3].lines)) &&
                                                  ((!(!strcmp(wing_players[wing].team, wing_players[wing4].team))) || (wing_players[wing].lines != wing_players[wing4].lines)) )
                                             {
                                                 ++unique;
                                             }
 
-                                            if ( ((!(!strcmp(wing_players[wing2].team, wing_players[wing3].team))) || (wing_players[wing2].lines != wing_players[wing3].lines)) &&
+                                            if ( ((!(!strcmp(wing_players[wing2].team, center_players[center].team))) || (wing_players[wing2].lines != center_players[center].lines)) &&
+                                                 ((!(!strcmp(wing_players[wing2].team, center_players[center2].team))) || (wing_players[wing2].lines != center_players[center2].lines)) &&
+                                                 ((!(!strcmp(wing_players[wing2].team, wing_players[wing].team))) || (wing_players[wing2].lines != wing_players[wing].lines)) &&
+                                                 ((!(!strcmp(wing_players[wing2].team, wing_players[wing3].team))) || (wing_players[wing2].lines != wing_players[wing3].lines)) &&
                                                  ((!(!strcmp(wing_players[wing2].team, wing_players[wing4].team))) || (wing_players[wing2].lines != wing_players[wing4].lines)) )
                                             {
                                                 ++unique;
                                             }
 
-                                            if ( ((!(!strcmp(wing_players[wing3].team, wing_players[wing4].team))) || (wing_players[wing3].lines != wing_players[wing4].lines)) )
+                                            if ( ((!(!strcmp(wing_players[wing3].team, center_players[center].team))) || (wing_players[wing3].lines != center_players[center].lines)) &&
+                                                 ((!(!strcmp(wing_players[wing3].team, center_players[center2].team))) || (wing_players[wing3].lines != center_players[center2].lines)) &&
+                                                 ((!(!strcmp(wing_players[wing3].team, wing_players[wing].team))) || (wing_players[wing3].lines != wing_players[wing].lines)) &&
+                                                 ((!(!strcmp(wing_players[wing3].team, wing_players[wing2].team))) || (wing_players[wing3].lines != wing_players[wing2].lines)) &&
+                                                 ((!(!strcmp(wing_players[wing3].team, wing_players[wing4].team))) || (wing_players[wing3].lines != wing_players[wing4].lines)) )
                                             {
                                                 ++unique;
                                             }
 
+                                            if ( ((!(!strcmp(wing_players[wing4].team, center_players[center].team))) || (wing_players[wing4].lines != center_players[center].lines)) &&
+                                                 ((!(!strcmp(wing_players[wing4].team, center_players[center2].team))) || (wing_players[wing4].lines != center_players[center2].lines)) &&
+                                                 ((!(!strcmp(wing_players[wing4].team, wing_players[wing].team))) || (wing_players[wing4].lines != wing_players[wing].lines)) &&
+                                                 ((!(!strcmp(wing_players[wing4].team, wing_players[wing2].team))) || (wing_players[wing4].lines != wing_players[wing2].lines)) &&
+                                                 ((!(!strcmp(wing_players[wing4].team, wing_players[wing3].team))) || (wing_players[wing4].lines != wing_players[wing3].lines)) )
+                                            {
+                                                ++unique;
+                                            }
+
+
                                             if (unique > 2)
                                                 continue;
-
                                             
 
 
@@ -333,8 +351,8 @@ int main() {
                                                    score
                                                    );
 
-                                            fprintf(fp, "Score: %f Cost: %d   Team: %s %s %d %s %s %d %s %s %d %s %s %d %s %s %d %s %s %d %s %s %s\n",
-                                                   score, cost,
+                                            fprintf(fp, "unique: %d Score: %f Cost: %d   Team: %s %s %d %s %s %d %s %s %d %s %s %d %s %s %d %s %s %d %s %s %s\n",
+                                                   unique, score, cost,
                                                    center_players[center].name,
                                                    center_players[center].team,
                                                    center_players[center].lines,
